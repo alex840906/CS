@@ -11,7 +11,8 @@
                 "src/main.cpp",
                 "src/operator.cpp",
                 "src/fitness.cpp",
-                "src/object.cpp",
+                "src/dataset.cpp",
+                "src/cs.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ]
