@@ -3,7 +3,7 @@
 #include "CS_ARG.h"
 //#include "operator.h"
 
-int calFitness(veci_1D &);
+float calFitness(veci_1D &);
 
 
 #endif

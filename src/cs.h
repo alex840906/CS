@@ -4,7 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <stdio.h>
-#include <time.h>
+#include <ctime>
+#include <cstdlib>
 #include <algorithm>
 //#include "CS_ARG.h"
 #include "fitness.h"
@@ -31,8 +32,9 @@ public:
 
 veci_2D updatingScheme(Cuckoo);
 void generateNewSolution();
+void rearrange(veci_1D &);
 
-inline vector<Cuckoo> cuckooList; //Use vector to construct Cuckoo
+inline vector<Cuckoo> cuckooList(cuckooNum,Cuckoo()); //Use vector to construct Cuckoo
 //inline Cuckoo bestCuckoo;
 
 #endif
