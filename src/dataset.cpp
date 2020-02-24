@@ -8,6 +8,7 @@
 
 void readfile() /////////////讀檔//////////////
 {
+    //veci_2D eil;
     string line, tmp;
     int tmp_2;
     int i = 0;

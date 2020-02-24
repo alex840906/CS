@@ -1,39 +1,49 @@
 #include "CS_ARG.h"
 #include "cs.h"
 #include "dataset.h"
-// #include <ctime>
-// #include <cstdlib>
 
 int main()
 {
     srand(time(NULL));
     int iteration = 0;
     int run = 0;
-    readfile();
 
-    for (int i = 1; i < cuckooNum; i++)
-        rearrange(cuckooList[i].solution);
+    float bestFitness = 10000;
+    float avgBestFitness = 0;
+    readfile();
 
     for (int i = 0; i < cuckooNum; i++)
     {
+        cuckooList[i].initialize();
         cuckooList[i].fitness = calFitness(cuckooList[i].solution);
     }
 
     for (iteration = 0; iteration < iterationNum; iteration++)
     {
+
+        //cout << iteration << endl;
         for (int i = 0; i < cuckooNum; i++)
         {
-            cout<<iteration<<" No: "<<i<<" "<<"fitness: "<<cuckooList[i].fitness<<endl;
+            if (bestFitness >= cuckooList[i].fitness)
+            {
+                bestFitness = cuckooList[i].fitness;
+            }
         }
-        
-        // for (int i = 1; i < solutionSize; i++)
-        //     cout << cuckooList[0].solution[i] << " ";
-        // cout << endl;
-
+        for (int i = 0; i < solutionSize; i++)
+            cout << cuckooList[0].solution[i];
+        cout<<" "<<cuckooList[0].fitness<<endl;
+        //cout<<cuckooList[0].fitness<<endl;
         generateNewSolution();
-        // for (int i = 1; i < solutionSize; i++)
-        //     cout << cuckooList[0].solution[i]<<" ";
     }
+
+    // 輸出結果
+    // for (int i = 0; i < cuckooNum; i++)
+    // {
+    //     cout << " No: " << i << " "
+    //          << "fitness: " << cuckooList[i].fitness << endl;
+    // }
+
+    cout << iteration << " " << bestFitness << endl;
 
     system("pause");
     return 0;

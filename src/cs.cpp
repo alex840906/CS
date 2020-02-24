@@ -2,11 +2,10 @@
 #include <ctime>
 #include <cstdlib>
 
+vector<Cuckoo> cuckooList(cuckooNum,Cuckoo());
 Cuckoo::Cuckoo()
 {
-    
-    //cout<<"yes"<<endl;
-    //solution.resize(solutionSize);
+    srand(time(NULL));
 
     int r_1, r_2, tmp;
 
@@ -21,15 +20,29 @@ Cuckoo::Cuckoo()
         tmp = solution[r_1];
         solution[r_1] = solution[r_2];
         solution[r_2] = tmp;
-
-        //cout << r_1 << r_2<< " " ;
     }
-    //cout << endl;
+}
+
+void Cuckoo::initialize()
+{
+    srand(time(NULL));
+
+    int r_1, r_2, tmp;
+
+    for (int i = 0; i < solutionSize; i++)
+    {
+        r_1 = rand() % solutionSize;
+        r_2 = rand() % solutionSize;
+
+        tmp = solution[r_1];
+        solution[r_1] = solution[r_2];
+        solution[r_2] = tmp;
+    }
 }
 
 void rearrange(veci_1D &solution)
 {
-    
+
     //srand(time(NULL));
     int r_1, r_2, tmp;
 
@@ -169,7 +182,7 @@ void selectnBestCuckoo(veci_2D newSolution, veci_2D newBestSolution, vecf_1D new
         selectSolution.push_back(cuckooList[i].solution);
     }
 
-    for (int i = 0; i < cuckooNum; i++) // 與 newSolution 比較, 替換較差解
+    for (int i = 0; i < evolutionTime; i++) // 與 newSolution 比較, 替換較差解
     {
         indexPosition = max_element(selectSolutionFitness.begin(), selectSolutionFitness.end()) - (selectSolutionFitness.begin());
 
@@ -215,6 +228,7 @@ void generateNewSolution()
             bestFitness = cuckooList[i + 1].fitness;
         }
     }
+
     newSolution = updatingScheme(cuckooList[randomSelect]);
     newBestSolution = updatingScheme(cuckooList[bestCuckoo]);
 
@@ -247,7 +261,7 @@ void generateNewSolution()
             newWorstSolutionFitness.push_back(calFitness(newWorstSolution[i]));
         }
 
-        selectnBestCuckoo(newSolution,newBestSolution,newWorstSolution,newSolutionFitness,newBestSolutionFitness,newWorstSolutionFitness);
+        selectnBestCuckoo(newSolution, newBestSolution, newWorstSolution, newSolutionFitness, newBestSolutionFitness, newWorstSolutionFitness);
     }
 
     else
@@ -260,6 +274,13 @@ void generateNewSolution()
             newSolutionFitness.push_back(calFitness(newSolution[i]));
             newBestSolutionFitness.push_back(calFitness(newBestSolution[i]));
         }
-        selectnBestCuckoo(newSolution,newBestSolution,newSolutionFitness,newBestSolutionFitness);
+        selectnBestCuckoo(newSolution, newBestSolution, newSolutionFitness, newBestSolutionFitness);
     }
+
+    // for (int i = 0; i < cuckooNum; i++)
+    // {
+    //     cout << " No: " << i << " "
+    //          << "fitness: " << cuckooList[i].fitness << endl;
+    // }
+    //cout<<cuckooList[0].fitness<<endl;
 }

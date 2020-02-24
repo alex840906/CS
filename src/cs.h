@@ -28,13 +28,14 @@ public:
     veci_1D solution;
 
     void update(Cuckoo);
+    void initialize();
 };
 
 veci_2D updatingScheme(Cuckoo);
 void generateNewSolution();
 void rearrange(veci_1D &);
 
-inline vector<Cuckoo> cuckooList(cuckooNum,Cuckoo()); //Use vector to construct Cuckoo
-//inline Cuckoo bestCuckoo;
+//inline vector<Cuckoo> cuckooList(cuckooNum,Cuckoo()); //Use vector to construct Cuckoo
+extern vector<Cuckoo> cuckooList;
 
 #endif
