@@ -1,10 +1,11 @@
-#include "fitness.h"
 #include "dataset.h"
+#include "fitness.h"
+//#include "CS_ARG.h"
 
 
 float calFitness(veci_1D &solution)
 {
-    
+    //veci_2D eil;
     float fitnessValue = 0.0;
     float tmp = 0;
 

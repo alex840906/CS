@@ -22,5 +22,5 @@ typedef vector<float> vecf_1D;
 typedef vector<vector<float>> vecf_2D;
 
 
-inline veci_2D eil;
+//inline veci_2D eil;
 #endif

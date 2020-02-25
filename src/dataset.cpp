@@ -4,16 +4,17 @@
 #include <stdlib.h>
 #include <iomanip>
 #include <fstream>
-#include "CS_ARG.h"
+//#include "CS_ARG.h"
+
 
 void readfile() /////////////讀檔//////////////
 {
-    //veci_2D eil;
+    vector<vector<int>> eil(dataSize);
     string line, tmp;
     int tmp_2;
     int i = 0;
 
-    eil.resize(dataSize);
+    //eil.resize(dataSize);
     fstream file;
     file.open("datasets/eil51.txt", ios::in);
 
