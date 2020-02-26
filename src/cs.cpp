@@ -5,7 +5,7 @@
 vector<Cuckoo> cuckooList(cuckooNum,Cuckoo());
 Cuckoo::Cuckoo()
 {
-    srand(time(NULL));
+    // srand(time(NULL));
 
     int r_1, r_2, tmp;
 
@@ -25,7 +25,7 @@ Cuckoo::Cuckoo()
 
 void Cuckoo::initialize()
 {
-    srand(time(NULL));
+    // srand(time(NULL));
 
     int r_1, r_2, tmp;
 
@@ -60,44 +60,46 @@ void rearrange(veci_1D &solution)
     //cout << endl;
 }
 
-int calculateStepSize(Cuckoo cuckoo, Cuckoo bestCuckoo)
-{
-    int _alpha = 0;
+// int calculateStepSize(Cuckoo cuckoo, Cuckoo bestCuckoo)
+// {
+//     int _alpha = 0;
 
-    for (int i = 0; i < solutionSize - 1;)
-    {
-        if (cuckoo.solution[i] == bestCuckoo.solution[i] && cuckoo.solution[i + 1] == bestCuckoo.solution[i + 1])
-        {
-            i++;
-        }
-        else
-        {
-            _alpha++;
-            i += 2;
-        }
-    }
+//     for (int i = 0; i < solutionSize - 1;)
+//     {
+//         if (cuckoo.solution[i] == bestCuckoo.solution[i] && cuckoo.solution[i + 1] == bestCuckoo.solution[i + 1])
+//         {
+//             i++;
+//         }
+//         else
+//         {
+//             _alpha++;
+//             i += 2;
+//         }
+//     }
 
-    return _alpha;
-}
+//     return _alpha;
+// }
 
 veci_2D updatingScheme(Cuckoo cuckoo)
 {
 
-    srand(time(NULL));
-    veci_2D newSolution;
+    // srand(time(NULL));
+    veci_2D newGenSolution;
     veci_1D tmpSolution;
 
     for (int count = 0; count < evolutionTime; count++) //生成新的m個解
     {
         int r_1 = rand() % solutionSize;
         int r_2 = rand() % solutionSize;
+
+        
         if (r_1 > r_2) //若r_1 > r_2, 則交換
         {
             int tmp = r_1;
             r_1 = r_2;
             r_2 = tmp;
         }
-
+        
         tmpSolution.assign(cuckoo.solution.begin(), cuckoo.solution.end());
 
         for (int i = r_1, j = r_2; i < (r_1 + r_2 + 1) / 2; i++, j--) //invertion
@@ -106,22 +108,19 @@ veci_2D updatingScheme(Cuckoo cuckoo)
             //cout<<"swap sucess";
         }
 
-        newSolution.push_back(tmpSolution);
+        newGenSolution.push_back(tmpSolution);
     }
 
-    return newSolution;
+    return newGenSolution;
 }
 
-void selectnBestCuckoo(veci_2D newSolution, veci_2D newBestSolution, veci_2D newWorstSolution, vecf_1D newSolutionFitness, vecf_1D newBestSolutionFitness, vecf_1D newWorstSolutionFitness)
+void selectnBestCuckoo(veci_2D &newSolution, veci_2D &newBestSolution, veci_2D &newWorstSolution, vecf_1D &newSolutionFitness, vecf_1D &newBestSolutionFitness, vecf_1D &newWorstSolutionFitness)
 {
     vecf_1D selectSolutionFitness;
     veci_2D selectSolution;
     int indexPosition;
 
-    //selectSolutionFitness.assign(newSolutionFitness.begin(),newSolutionFitness.end());
-    //selectSolution.assign(newSolution.begin(),newSolution.end());
-
-    for (int i = 0; i < cuckooNum; i++)
+    for (int i = 0; i < cuckooNum; i++) //將 cuckooList的解與fitness push進selectSolution
     {
         selectSolutionFitness.push_back(cuckooList[i].fitness);
         selectSolution.push_back(cuckooList[i].solution);
@@ -130,7 +129,7 @@ void selectnBestCuckoo(veci_2D newSolution, veci_2D newBestSolution, veci_2D new
     for (int i = 0; i < evolutionTime; i++) // 與 newSolution 比較, 替換較差解
     {
         indexPosition = max_element(selectSolutionFitness.begin(), selectSolutionFitness.end()) - (selectSolutionFitness.begin());
-
+        
         if (selectSolutionFitness[indexPosition] > newSolutionFitness[i])
         {
             selectSolutionFitness[indexPosition] = newSolutionFitness[i];
@@ -141,7 +140,7 @@ void selectnBestCuckoo(veci_2D newSolution, veci_2D newBestSolution, veci_2D new
     for (int i = 0; i < evolutionTime; i++) // 與 newBestSolution 比較, 替換較差解
     {
         indexPosition = max_element(selectSolutionFitness.begin(), selectSolutionFitness.end()) - (selectSolutionFitness.begin());
-
+        
         if (selectSolutionFitness[indexPosition] > newBestSolutionFitness[i])
         {
             selectSolutionFitness[indexPosition] = newBestSolutionFitness[i];
@@ -152,7 +151,7 @@ void selectnBestCuckoo(veci_2D newSolution, veci_2D newBestSolution, veci_2D new
     for (int i = 0; i < evolutionTime; i++) // 與 newWorstSolution 比較, 替換較差解
     {
         indexPosition = max_element(selectSolutionFitness.begin(), selectSolutionFitness.end()) - (selectSolutionFitness.begin());
-
+        
         if (selectSolutionFitness[indexPosition] > newWorstSolutionFitness[i])
         {
             selectSolutionFitness[indexPosition] = newWorstSolutionFitness[i];
@@ -167,7 +166,7 @@ void selectnBestCuckoo(veci_2D newSolution, veci_2D newBestSolution, veci_2D new
     }
 }
 
-void selectnBestCuckoo(veci_2D newSolution, veci_2D newBestSolution, vecf_1D newSolutionFitness, vecf_1D newBestSolutionFitness)
+void selectnBestCuckoo(veci_2D &newSolution, veci_2D &newBestSolution, vecf_1D &newSolutionFitness, vecf_1D &newBestSolutionFitness)
 {
     vecf_1D selectSolutionFitness;
     veci_2D selectSolution;
@@ -213,19 +212,22 @@ void selectnBestCuckoo(veci_2D newSolution, veci_2D newBestSolution, vecf_1D new
 
 void generateNewSolution()
 {
+    //srand(time(NULL));
     veci_2D newSolution;
     veci_2D newBestSolution;
     int bestCuckoo = 0;
     float bestFitness = cuckooList[0].fitness;
 
-    int randomSelect = rand() % cuckooNum;
+    int randomSelect;
+    randomSelect = rand() % cuckooNum;
+    //cout<<randomSelect<<endl;
 
     for (int i = 1; i < cuckooNum; i++) //找出 best cuckoo
     {
-        if (bestFitness > cuckooList[i + 1].fitness)
+        if (bestFitness > cuckooList[i].fitness)
         {
             bestCuckoo = i;
-            bestFitness = cuckooList[i + 1].fitness;
+            bestFitness = cuckooList[i].fitness;
         }
     }
 
@@ -241,10 +243,10 @@ void generateNewSolution()
 
         for (int i = 1; i < cuckooNum; i++) //找出 worst cuckoo
         {
-            if (worstFitness < cuckooList[i + 1].fitness)
+            if (worstFitness < cuckooList[i].fitness)
             {
                 worstCuckoo = i;
-                worstFitness = cuckooList[i + 1].fitness;
+                worstFitness = cuckooList[i].fitness;
             }
         }
 
@@ -254,7 +256,7 @@ void generateNewSolution()
         vecf_1D newBestSolutionFitness;
         vecf_1D newWorstSolutionFitness;
 
-        for (int i = 0; i < evolutionTime; i++)
+        for (int i = 0; i < evolutionTime; i++) //計算 new, best, worst cuckoo 的 fitness
         {
             newSolutionFitness.push_back(calFitness(newSolution[i]));
             newBestSolutionFitness.push_back(calFitness(newBestSolution[i]));

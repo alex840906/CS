@@ -9,11 +9,11 @@
 
 #define solutionSize 51
 #define dataSize 51
-#define cuckooNum 10
+#define cuckooNum 15
 #define Pa 1.00
 #define evolutionTime 10
-#define iterationNum 50
-#define runNum 30
+#define iterationNum 5000
+#define runNum 1
 
 using namespace std;
 typedef vector<int> veci_1D;

@@ -6,10 +6,10 @@
 #include <fstream>
 //#include "CS_ARG.h"
 
-
+vector<vector<int>> eil(dataSize);
 void readfile() /////////////讀檔//////////////
 {
-    vector<vector<int>> eil(dataSize);
+    
     string line, tmp;
     int tmp_2;
     int i = 0;

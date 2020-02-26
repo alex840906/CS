@@ -15,6 +15,7 @@ float calFitness(veci_1D &solution)
         //tmp+=fitnessValue;
         //cout<<fitnessValue<<endl;
     }
+    fitnessValue += pow((pow(eil[solution[50]][0]-eil[solution[0]][0], 2)  + pow(eil[solution[50]][1]-eil[solution[0]][1], 2)),0.5);
 
     return fitnessValue;
 }
