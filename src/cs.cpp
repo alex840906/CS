@@ -5,8 +5,6 @@
 vector<Cuckoo> cuckooList(cuckooNum,Cuckoo());
 Cuckoo::Cuckoo()
 {
-    // srand(time(NULL));
-
     int r_1, r_2, tmp;
 
     for (int i = 0; i < solutionSize; i++)
@@ -25,8 +23,6 @@ Cuckoo::Cuckoo()
 
 void Cuckoo::initialize()
 {
-    // srand(time(NULL));
-
     int r_1, r_2, tmp;
 
     for (int i = 0; i < solutionSize; i++)
@@ -38,26 +34,6 @@ void Cuckoo::initialize()
         solution[r_1] = solution[r_2];
         solution[r_2] = tmp;
     }
-}
-
-void rearrange(veci_1D &solution)
-{
-
-    //srand(time(NULL));
-    int r_1, r_2, tmp;
-
-    for (int i = 0; i < solutionSize; i++)
-    {
-        r_1 = rand() % solutionSize;
-        r_2 = rand() % solutionSize;
-
-        tmp = solution[r_1];
-        solution[r_1] = solution[r_2];
-        solution[r_2] = tmp;
-
-        //cout << r_1 << " " << r_2;
-    }
-    //cout << endl;
 }
 
 // int calculateStepSize(Cuckoo cuckoo, Cuckoo bestCuckoo)
@@ -82,8 +58,6 @@ void rearrange(veci_1D &solution)
 
 veci_2D updatingScheme(Cuckoo cuckoo)
 {
-
-    // srand(time(NULL));
     veci_2D newGenSolution;
     veci_1D tmpSolution;
 
@@ -91,8 +65,7 @@ veci_2D updatingScheme(Cuckoo cuckoo)
     {
         int r_1 = rand() % solutionSize;
         int r_2 = rand() % solutionSize;
-
-        
+ 
         if (r_1 > r_2) //若r_1 > r_2, 則交換
         {
             int tmp = r_1;
@@ -172,9 +145,6 @@ void selectnBestCuckoo(veci_2D &newSolution, veci_2D &newBestSolution, vecf_1D &
     veci_2D selectSolution;
     int indexPosition;
 
-    //selectSolutionFitness.assign(newSolutionFitness.begin(),newSolutionFitness.end());
-    //selectSolution.assign(newSolution.begin(),newSolution.end());
-
     for (int i = 0; i < cuckooNum; i++)
     {
         selectSolutionFitness.push_back(cuckooList[i].fitness);
@@ -212,7 +182,6 @@ void selectnBestCuckoo(veci_2D &newSolution, veci_2D &newBestSolution, vecf_1D &
 
 void generateNewSolution()
 {
-    //srand(time(NULL));
     veci_2D newSolution;
     veci_2D newBestSolution;
     int bestCuckoo = 0;
@@ -220,7 +189,6 @@ void generateNewSolution()
 
     int randomSelect;
     randomSelect = rand() % cuckooNum;
-    //cout<<randomSelect<<endl;
 
     for (int i = 1; i < cuckooNum; i++) //找出 best cuckoo
     {
@@ -278,11 +246,4 @@ void generateNewSolution()
         }
         selectnBestCuckoo(newSolution, newBestSolution, newSolutionFitness, newBestSolutionFitness);
     }
-
-    // for (int i = 0; i < cuckooNum; i++)
-    // {
-    //     cout << " No: " << i << " "
-    //          << "fitness: " << cuckooList[i].fitness << endl;
-    // }
-    //cout<<cuckooList[0].fitness<<endl;
 }

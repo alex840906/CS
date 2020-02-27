@@ -21,38 +21,18 @@ int main()
             cuckooList[i].initialize();
             cuckooList[i].fitness = calFitness(cuckooList[i].solution);
         }
-        // for (int j = 0; j < cuckooNum; j++)
-        // {
-        //     for (int i = 0; i < solutionSize; i++)
-        //         cout << cuckooList[j].solution[i];
-        //     cout<<endl;
-        // }
+
         for (iteration = 0; iteration < iterationNum; iteration++)
         {
-            // for (int i = 0; i < cuckooNum; i++)
-            // {
-            //     cout << " No: " << i << " "
-            //          << "fitness: " << cuckooList[i].fitness << endl;
-            // }
-
-            //cout << iteration << endl;
             for (int i = 0; i < cuckooNum; i++)
             {
                 if (bestFitness >= cuckooList[i].fitness)
-                {
                     bestFitness = cuckooList[i].fitness;
-                }
             }
-            // for (int i = 0; i < solutionSize; i++)
-            //     cout << cuckooList[0].solution[i];
-            //cout << " " << cuckooList[0].fitness << endl;
-            //cout<<cuckooList[0].fitness<<endl;
-
             generateNewSolution();
-            //cout << iteration <<" "<<bestFitness << endl;
         }
-
         avgBestFitness += bestFitness;
+        cout<<"run: "<<run<<" bestFitness: "<<bestFitness<<endl;
     }
     avgBestFitness /= runNum;
     cout << "avgFitness: " << avgBestFitness << endl;
