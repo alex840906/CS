@@ -7,10 +7,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <algorithm>
-//#include "CS_ARG.h"
 #include "fitness.h"
-
-//#include "operator.h"
 
 using namespace std;
 

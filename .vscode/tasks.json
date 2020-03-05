@@ -9,7 +9,6 @@
             "args": [
                 "-g", 
                 "src/main.cpp",
-                "src/operator.cpp",
                 "src/fitness.cpp",
                 "src/dataset.cpp",
                 "src/cs.cpp",

@@ -78,7 +78,6 @@ veci_2D updatingScheme(Cuckoo cuckoo)
         for (int i = r_1, j = r_2; i < (r_1 + r_2 + 1) / 2; i++, j--) //invertion
         {
             swap(tmpSolution[i], tmpSolution[j]);
-            //cout<<"swap sucess";
         }
 
         newGenSolution.push_back(tmpSolution);
